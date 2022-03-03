@@ -1,0 +1,3 @@
+run diff with outputs - redirect into files
+
+./scok > srv_stdout 2>srv_stderr.txt. @> stldlog.txt
