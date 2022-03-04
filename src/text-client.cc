@@ -3,7 +3,7 @@ Written by Musa Azeem
 text client source code
 */
 
-#include "../headers/text-client.h"
+#include "../inc/text-client.h"
 #include <sys/sysinfo.h>    //using get_nproc_conf
 #include <sys/socket.h>     //using socket
 #include <unistd.h>         //using unlink, close
@@ -32,6 +32,7 @@ void TextClient::runClient() const{
 
     // write to socket
     char write_buffer[kWrite_buffer_size];
+    char read_buffer[64]; 
     while(1){
         std::cin.getline(write_buffer, kWrite_buffer_size);
         while(std::cin.gcount() > 0){
@@ -49,8 +50,12 @@ void TextClient::runClient() const{
                 std::cout << "Server dropped connection" << std::endl;
                 exit(-2);
             }
-            //char read_buffer[64]; 
-            // read(sock_fd, read_buffer, 64);
+            int n = read(sock_fd, read_buffer, 64);
+            if(n<0){
+                std::cout << "Error reading" << std::endl;
+            }
+            std::cout << read_buffer << std::endl;
+
             std::cin.getline(write_buffer, kWrite_buffer_size);
         }
     }

@@ -5,7 +5,7 @@ test server header
 
 #ifndef TEXTSERVER
 #define TEXTSERVER
-#include "../headers/Unix-Domain-Socket.h"
+#include "../inc/Unix-Domain-Socket.h"
 
 class TextServer: public UnixDomainSocket{
     public:
