@@ -1,16 +1,16 @@
 /*
 Written by Musa Azeem
-test server header
+text client header
 */
 
-#ifndef TEXTSERVER
-#define TEXTSERVER
+#ifndef TEXTCLIENT
+#define TEXTCLIENT
 #include "../headers/Unix-Domain-Socket.h"
 
-class TextServer: public UnixDomainSocket{
+class TextClient: public UnixDomainSocket{
     public:
       using UnixDomainSocket::UnixDomainSocket;
-      void runServer() const;
+      void runClient() const;
 };
 
 #endif
