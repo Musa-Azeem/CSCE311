@@ -8,6 +8,7 @@ text-server source
 #include <sys/socket.h>     //using socket
 #include <unistd.h>         //using unlink, close
 #include <iostream>
+#include <vector>
 
 void TextServer::runServer() const{
     int sock_fd;        //unnamed socket file descriptor
@@ -43,7 +44,7 @@ void TextServer::runServer() const{
         std::cout << "Error listening for client" << std::endl;
         exit(-1);
     }
-    while(1){
+    while(true){
         // Accept connection from client
         client_sock_fd = accept(sock_fd, nullptr, nullptr);
         if(client_sock_fd < 0){

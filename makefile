@@ -1,3 +1,4 @@
+# compile with c++17
 text-client:
 	@echo 'You should implement me for points'
 

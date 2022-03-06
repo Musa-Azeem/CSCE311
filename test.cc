@@ -1,9 +1,19 @@
 #include <string>
 #include <iostream>
-#include "inc/text-client.h"
 using namespace std;
 
+#include "inc/search.h"
+#include <vector>
+
 int main(){
-    TextClient cli("socket", "hello", "hell");
-    cli.print();
+    Search s("data/dante.t", "bad");
+    if(s.search()){
+        for(auto str : s.get_found_lines()){
+            cout << str << endl;
+        }
+    }
+    else{
+        cout << "error" << endl;
+    }
+
 }

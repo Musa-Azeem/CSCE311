@@ -8,17 +8,21 @@ Search class header
 #include <string>
 #include <vector>
 
-class String{
+class Search{
     public:
-      String(char *path, char *search_str);
+      Search(char *path, char *search_str);
       void setPath(char *path);
       void setSearchStr(char *search_str);
-      bool isValidFile() const;
-      std::vector<std::string> search() const;
+    //   bool isValidFile() const;
+    //   std::vector<std::string> search();
+    int search();
+    const std::vector<std::string> &get_found_lines() const;
     private:
       std::string path;
       std::string search_str;
-      std::vector<std::string> found;   //vector of null terminated char[]
+      std::vector<std::string> found_lines;   //vector of null terminated char[]
+      bool validFile;
+      void checkValidFile();
 };
 
 #endif
