@@ -12,7 +12,7 @@ class TextServer: public UnixDomainSocket{
       using UnixDomainSocket::UnixDomainSocket;
       void runServer() const;
     private:
-      const size_t kRead_buffer_size = 64;
+      const size_t kRead_buffer_size = 1024;
 };
 
 #endif

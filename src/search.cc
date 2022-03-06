@@ -6,15 +6,45 @@ Search class source code
 #include "../inc/search.h"
 #include <string>
 #include <vector>
-#include <filesystem>
-#include <fstream>
+#include <filesystem>   //using exists
+#include <fstream>      //using istream
+#include <sstream>
 
 #include <iostream>
 
+Search::Search() 
+    : path(""), search_str(""), validFile(false)
+    {}
+Search::Search(char *str){
+    // std::vector<std::string> tkns;
+    std::stringstream ss(str);
+    // std::string token;
+    // while(std::getline(ss, token, '\t')){
+    //     tkns.push_back(token);
+    // }
+    // path = tkns[0];
+    // search_str = tkns[1];
+    ss >> path;
+    ss >> search_str;
+    checkValidFile();
+}
 Search::Search(char *path, char *search_str){
     this->path = std::string(path);
     this->search_str = std::string(search_str);
     checkValidFile();
+}
+Search::Search(Search &s){
+    validFile = s.validFile;
+    path = s.get_path();
+    search_str = s.get_search_str();
+    found_lines = s.get_found_lines();
+}
+const Search &Search::operator=(const Search &rhs){
+    validFile = rhs.validFile;
+    path = rhs.get_path();
+    search_str = rhs.get_search_str();
+    found_lines = rhs.get_found_lines();
+    return rhs;
 }
 void Search::setPath(char *path){
     this->path = std::string(path);
@@ -25,6 +55,12 @@ void Search::setSearchStr(char *search_str){
 }
 const std::vector<std::string> &Search::get_found_lines() const{
     return found_lines;
+}
+const std::string &Search::get_path() const{
+    return path;
+}
+const std::string &Search::get_search_str() const{
+    return search_str;
 }
 void Search::checkValidFile(){
     if(std::filesystem::exists(path)){
@@ -51,6 +87,7 @@ int Search::search(){
                 found_lines.push_back(line);
             }
         }
+        in_file.close();
         return 1;
     }
     catch(std::string e){

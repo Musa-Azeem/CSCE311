@@ -10,13 +10,19 @@ Search class header
 
 class Search{
     public:
+      Search();
+      Search(char *str);
       Search(char *path, char *search_str);
+      Search(Search &s);
+      const Search &operator=(const Search &rhs);
       void setPath(char *path);
       void setSearchStr(char *search_str);
     //   bool isValidFile() const;
     //   std::vector<std::string> search();
-    int search();
-    const std::vector<std::string> &get_found_lines() const;
+      int search();
+      const std::vector<std::string> &get_found_lines() const;
+      const std::string &get_path() const;
+      const std::string &get_search_str() const;
     private:
       std::string path;
       std::string search_str;

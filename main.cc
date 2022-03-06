@@ -5,6 +5,8 @@ Main Method to run client and server
 #include "inc/Unix-Domain-Socket.h"
 #include "inc/text-server.h"
 #include "inc/text-client.h"
+#include <string>
+#include <iostream>
 
 const char kSocket_path[] = "socket_cli_srv_domain_socket";
 int main(int argc, char **argv){
@@ -17,7 +19,11 @@ int main(int argc, char **argv){
         dss.runServer();
     }
     else if(strcmp(argv[1], "client") == 0){
-        TextClient dsc(kSocket_path, "path", "search");
+        std::string path;
+        std::string search;
+        std::cin >> path;
+        std::cin >> search;
+        TextClient dsc(kSocket_path, &path[0], &search[0]);
         dsc.runClient();
     }
     return 0;
