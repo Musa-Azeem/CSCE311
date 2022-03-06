@@ -19,13 +19,15 @@ Search::Search(char *str){
     // std::vector<std::string> tkns;
     std::stringstream ss(str);
     // std::string token;
+    std::getline(ss, path, '\t');
+    std::getline(ss, search_str, '\t');
     // while(std::getline(ss, token, '\t')){
-    //     tkns.push_back(token);
+        // tkns.push_back(token);
     // }
     // path = tkns[0];
     // search_str = tkns[1];
-    ss >> path;
-    ss >> search_str;
+    // ss >> path;
+    // ss >> search_str;
     checkValidFile();
 }
 Search::Search(char *path, char *search_str){
@@ -63,7 +65,7 @@ const std::string &Search::get_search_str() const{
     return search_str;
 }
 void Search::checkValidFile(){
-    if(std::filesystem::exists(path)){
+    if(std::filesystem::exists(path)){  //doesnt check file
         validFile = true;
     }
     else{

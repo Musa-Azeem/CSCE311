@@ -63,7 +63,9 @@ void TextClient::runClient(){
 void TextClient::print_strings(){
     std::stringstream ss(read_buffer);
     std::string line;
+    int i = 1;
     while(std::getline(ss, line)){
-        std::clog << "\t" << line << std::endl;
+        std::clog << i << "\t" << line << std::endl;
+        i += 1;
     }
 }

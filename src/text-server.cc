@@ -58,7 +58,7 @@ void TextServer::runServer() const{
         // Recieve data from client
         bytes_read = read(client_sock_fd, read_buffer, kRead_buffer_size);
         if(bytes_read > 0){
-            std::clog << "read: " << bytes_read << std::endl;
+            // std::clog << "read: " << bytes_read << std::endl;
             s = Search(read_buffer);
 
             std::clog << "PATH: " << s.get_path() << std::endl;
@@ -91,68 +91,5 @@ void TextServer::runServer() const{
             }
             std::clog << "BYTES SENT: " << bytes_wrote << std::endl;
         }
-
-
-        
-        // std::cout << "writing back" << std::endl;
-        // char ret[] = "recieved";
-        // success = write(client_sock_fd, ret, sizeof(ret));
-        // if(success<0){
-        //     std::cout << "Error Writing back" << std::endl;
-        // }
-        
-        // bytes_read_path = read(client_sock_fd, read_buffer, kRead_buffer_size);
-        // if(bytes_read_path > 0){
-        //     std::clog << "read path: " << bytes_read_path << std::endl;
-        //     std::clog << "PATH: " << read_buffer << std::endl;
-        //     //TODO give path string (read_buffer) to process_str object
-        // }
-        // else if(bytes_read_search < 0){
-        //     std::cout << "Error reading client path string" << std::endl;
-        //     exit(-1);
-        // }
-
-        // std::cout << "Reading search" << std::endl;
-
-        // bytes_read_search = read(client_sock_fd, read_buffer, kRead_buffer_size);
-        // if(bytes_read_search > 0){
-        //     // std::clog << "read search: " << bytes_read_search << std::endl;
-        //     std::clog << "SEEKING: " << read_buffer << std::endl;
-        //     //TODO give search string to process_str class
-        // }
-        // else if(bytes_read_search < 0){
-        //     std::cout << "Error reading client search string" << std::endl;
-        //     exit(-1);
-        // }
-        
-
-        // while(bytes_read > 0){
-        //     // if(strcmp(read_buffer, kKil_msg)==0){
-        //     //     std::clog << "Shutting down Server" << std::endl;
-
-        //     //     bytes_read = 0; 
-        //     //     break;
-        //     // }
-        //     std::clog << "read: " << bytes_read << std::endl;
-        //     std::clog << read_buffer << std::endl;
-
-        //     //TODO process file to get return string
-        //     char word[] = "recieved";
-        //     success = write(client_sock_fd, word, sizeof(word));
-        //     if(success<0){
-        //         std::cout << "Error Writing back" << std::endl;
-        //     }
-
-        //     bytes_read = read(client_sock_fd, read_buffer, kRead_buffer_size);
-        // }
-
-        // if (bytes_read == 0){
-        //     std::clog << "CLIENT DISCONNECTED" << std::endl;
-        //     close(client_sock_fd);
-        // }
-        // else if(bytes_read < 0){
-        //     std::cout << "Error reading client buffer" << std::endl;
-        //     exit(-1);
-        // }
     }
 }
