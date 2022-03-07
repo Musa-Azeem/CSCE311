@@ -65,7 +65,7 @@ const std::string &Search::get_search_str() const{
     return search_str;
 }
 void Search::checkValidFile(){
-    if(std::filesystem::exists(path)){  //doesnt check file
+    if(std::filesystem::exists(path)){
         validFile = true;
     }
     else{

@@ -6,4 +6,4 @@ text-server:
 	g++ -std=c++17 main-server.cc src/*.cc -o text-server
 
 clean:
-	@echo 'You should implement me for points'
+	rm text-client text-server
