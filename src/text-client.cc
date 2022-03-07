@@ -32,9 +32,9 @@ TextClient::TextClient(const char *socket_path, const char *path_str, const char
     this->search_str = std::string(search_str);
 }
 void TextClient::runClient(){
-    int sock_fd;
-    ssize_t bytes_wrote;
-    ssize_t bytes_read;
+    int sock_fd;            //unnamed socket file descriptor
+    ssize_t bytes_wrote;    //record number of bytes wrote to server
+    ssize_t bytes_read;     //record number of bytes read from server
 
     // open nameless Unix socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -53,7 +53,7 @@ void TextClient::runClient(){
     }
     std::clog << "SERVER CONNECTION ACCEPTED" << std::endl;
 
-    // write to socket
+    // write to socket - delimit path and search strings by tab character
     std::string write_buffer = path_str + "\t" + search_str;
     bytes_wrote = write(sock_fd, &write_buffer[0], write_buffer.size()+1);
     if(bytes_wrote < 0){

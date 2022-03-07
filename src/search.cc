@@ -24,7 +24,7 @@ Functions:
 #include <vector>
 #include <filesystem>   //using exists
 #include <fstream>      //using istream
-#include <sstream>
+#include <sstream>      //using stringstream
 
 Search::Search() 
     : path(""), search_str(""), validFile(false)
@@ -35,11 +35,6 @@ Search::Search(char *str){
     std::getline(ss, search_str, '\t');
     checkValidFile();
 }
-// Search::Search(char *path, char *search_str){
-//     this->path = std::string(path);
-//     this->search_str = std::string(search_str);
-//     checkValidFile();
-// }
 Search::Search(Search &s){
     validFile = s.validFile;
     path = s.get_path();
@@ -53,13 +48,6 @@ const Search &Search::operator=(const Search &rhs){
     found_lines = rhs.get_found_lines();
     return rhs;
 }
-// void Search::setPath(char *path){
-//     this->path = std::string(path);
-//     checkValidFile();
-// }
-// void Search::setSearchStr(char *search_str){
-//     this->search_str = std::string(search_str);
-// }
 const std::vector<std::string> &Search::get_found_lines() const{
     return found_lines;
 }
