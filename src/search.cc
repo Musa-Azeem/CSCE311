@@ -1,6 +1,22 @@
 /*
 Written by Musa Azeem
 Search class source code
+This file defines the functions of Searh class
+Functions:
+    defuault constructor:   sets path and search_str to "", isValid to false, and found_lines to default
+    alternate constructor:  takes a single string and splits it by the tab character into path and search strings
+        calls checkValidFile to set validFile
+    copy constructor: initializes object by copying another instance
+    assignment operator: copies another instance of object
+    get_found_lines:  returns found_lines
+    get_path:   returns path
+    get_search_str: returns search_str
+    checkValidFile: checks if path is a file in directory, sets value of validFile accordingly
+    Search: if validFile is true, searches for search_str in file specified by path
+        loops through every line of file
+        if search_str is a substring of line, that line is added to found_lines vector
+        returns 1 if successful
+        if not valid file or if error occurs, returns 0
 */
 
 #include "../inc/search.h"
@@ -9,8 +25,6 @@ Search class source code
 #include <filesystem>   //using exists
 #include <fstream>      //using istream
 #include <sstream>
-
-#include <iostream>
 
 Search::Search() 
     : path(""), search_str(""), validFile(false)
@@ -21,11 +35,11 @@ Search::Search(char *str){
     std::getline(ss, search_str, '\t');
     checkValidFile();
 }
-Search::Search(char *path, char *search_str){
-    this->path = std::string(path);
-    this->search_str = std::string(search_str);
-    checkValidFile();
-}
+// Search::Search(char *path, char *search_str){
+//     this->path = std::string(path);
+//     this->search_str = std::string(search_str);
+//     checkValidFile();
+// }
 Search::Search(Search &s){
     validFile = s.validFile;
     path = s.get_path();
@@ -39,13 +53,13 @@ const Search &Search::operator=(const Search &rhs){
     found_lines = rhs.get_found_lines();
     return rhs;
 }
-void Search::setPath(char *path){
-    this->path = std::string(path);
-    checkValidFile();
-}
-void Search::setSearchStr(char *search_str){
-    this->search_str = std::string(search_str);
-}
+// void Search::setPath(char *path){
+//     this->path = std::string(path);
+//     checkValidFile();
+// }
+// void Search::setSearchStr(char *search_str){
+//     this->search_str = std::string(search_str);
+// }
 const std::vector<std::string> &Search::get_found_lines() const{
     return found_lines;
 }

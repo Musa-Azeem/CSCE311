@@ -1,6 +1,21 @@
 /*
 Written by Musa Azeem
-text client source code
+TextClient Class source code
+This function defines the functions of TextClient class
+Functions:
+    Constructor:
+        uses base class constructor to initialize inherited variables
+        initializes path_str with given path string
+        initializes search_str with given search string
+    runClient:
+        creates and connects socket to server
+        writes path_str and search_str to server, delimited by tab character
+        reads back the found lines sent by server
+        calls print_strings to print found lines
+        prints number of bytes recieved from server to stdlog
+    print_strings:
+        prints found lines to stdout
+        formats by adding line number and tab before each found line
 */
 
 #include "../inc/text-client.h"
@@ -46,7 +61,7 @@ void TextClient::runClient(){
         exit(-1);
     }
 
-    bytes_read = read(sock_fd, read_buffer, kBuffer_size);
+    bytes_read = read(sock_fd, read_buffer, kRead_buffer_size);
     if(bytes_read < 0){
         std::cerr << "Error reading back" << std::endl;
     }

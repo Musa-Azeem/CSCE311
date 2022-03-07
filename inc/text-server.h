@@ -1,6 +1,12 @@
 /*
 Written by Musa Azeem
-test server header
+TextServer Class header
+This file defines a class TextServer, to which clients can connect to through a Unix Domain Socket
+Class Variables:
+  kRead_buffer_size:  Maximum number of bytes Server can read from a Client
+Class Functions:
+  Constructor:  uses base class constructor
+  runServer:    starts socket server
 */
 
 #ifndef TEXTSERVER

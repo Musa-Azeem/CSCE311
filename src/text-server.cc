@@ -1,24 +1,34 @@
 /*
 Written by Musa Azeem
-text-server source
+TextServer Class source code
+This file defines the functions for TextServer class
+Functions:
+    runServer: 
+        Creates and binds socket to server
+        continuosly listens and waits for client connections
+        when client connects, server waits to recieve a string containing path to file and string to search for
+        server creates Search object with data from client
+        server recieves found lines from Search object, and sends them to client
+        prints number of bytes sent to client to stdlog
+        server does not terminate, it continues to listen for new client connections
 */
 
 #include "../inc/text-server.h"
-#include "../inc/search.h"
+#include "../inc/search.h"  //using Search
 #include <sys/sysinfo.h>    //using get_nproc_conf
 #include <sys/socket.h>     //using socket
-#include <unistd.h>         //using unlink, close
+#include <unistd.h>         //using unlink
 #include <iostream>
 #include <vector>
 
 void TextServer::runServer() const{
     int sock_fd;            //unnamed socket file descriptor
-    int client_sock_fd;     //client connection request socket file descriptor
-    const size_t kMax_clients = get_nprocs_conf() - 1;   //maximum number of clients
-    char read_buffer[kRead_buffer_size];                //read buffer to read from client
-    ssize_t bytes_read;             //record number of bytes read from client str
-    ssize_t bytes_wrote;             //record number of bytes wrote to client
-    Search s;                   //object to process data from client
+    int client_sock_fd;     //client connection socket file descriptor
+    const size_t kMax_clients = get_nprocs_conf() - 1;   //maximum number of clients based on number of machine's execution contexts
+    char read_buffer[kRead_buffer_size];                 //read buffer to read from client
+    ssize_t bytes_read;     //record number of bytes read from client str
+    ssize_t bytes_wrote;    //record number of bytes wrote to client
+    Search s;               //object to process data from client
 
     // create socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -57,22 +67,20 @@ void TextServer::runServer() const{
 
         // Recieve data from client
         bytes_read = read(client_sock_fd, read_buffer, kRead_buffer_size);
-        if(bytes_read > 0){
-            // std::clog << "read: " << bytes_read << std::endl;
-            s = Search(read_buffer);
-
-            std::clog << "PATH: " << s.get_path() << std::endl;
-            std::clog << "SEEKING: " << s.get_search_str() << std::endl;
-        }
-        else if(bytes_read < 0){
+        if(bytes_read < 0){
             std::cerr << "Error reading client path string" << std::endl;
             continue;
         }
+        s = Search(read_buffer);
+        std::clog << "PATH: " << s.get_path() << std::endl;
+        std::clog << "SEEKING: " << s.get_search_str() << std::endl;
 
-        //Search file for search string
-        if(s.search()){
+        //Search file for search string and send found lines to client
+        success = s.search();
+        if(success){
             std::string ret = "";
             for(auto line: s.get_found_lines()){
+                //send one string of data, delimited by newline characters
                 ret += line + "\n";
             }
             bytes_wrote = write(client_sock_fd, &ret[0], ret.size()+1);
