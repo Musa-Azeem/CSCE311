@@ -23,7 +23,7 @@ void TextServer::runServer() const{
     // create socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
     if(sock_fd < 0){
-        std::cout << "Error creating socket" << std::endl;
+        std::cerr << "Error creating socket" << std::endl;
         exit(-1);
     }
 
@@ -33,7 +33,7 @@ void TextServer::runServer() const{
                        reinterpret_cast<const sockaddr*>(&sock_addr_),
                        sizeof(sock_addr_));
     if(success<0){
-        std::cout << "Error binding socket" << std::endl;
+        std::cerr << "Error binding socket" << std::endl;
         exit(-1);
     }
 
@@ -43,14 +43,14 @@ void TextServer::runServer() const{
     // Listen for client connections
     success = listen(sock_fd, kMax_clients);
     if(success < 0){
-        std::cout << "Error listening for client" << std::endl;
+        std::cerr << "Error listening for client" << std::endl;
         exit(-1);
     }
     while(true){
         // Accept connection from client
         client_sock_fd = accept(sock_fd, nullptr, nullptr);
         if(client_sock_fd < 0){
-            std::cout << "Error accepting client connection" << std::endl;
+            std::cerr << "Error accepting client connection" << std::endl;
             continue;
         }
         std::clog << "CLIENT CONNECTED" << std::endl;
@@ -65,7 +65,7 @@ void TextServer::runServer() const{
             std::clog << "SEEKING: " << s.get_search_str() << std::endl;
         }
         else if(bytes_read < 0){
-            std::cout << "Error reading client path string" << std::endl;
+            std::cerr << "Error reading client path string" << std::endl;
             continue;
         }
 
@@ -77,7 +77,7 @@ void TextServer::runServer() const{
             }
             bytes_wrote = write(client_sock_fd, &ret[0], ret.size()+1);
             if(bytes_wrote < 0){
-                std::cout << "Error writing back" << std::endl;
+                std::cerr << "Error writing back" << std::endl;
                 continue;
             }
             std::clog << "BYTES SENT: " << bytes_wrote << std::endl;
@@ -86,7 +86,7 @@ void TextServer::runServer() const{
             char inv[] = "INVALID FILE";
             bytes_wrote = write(client_sock_fd, inv, sizeof(inv));
             if(bytes_wrote < 0){
-                std::cout << "Error writing back" << std::endl;
+                std::cerr << "Error writing back" << std::endl;
                 continue;
             }
             std::clog << "BYTES SENT: " << bytes_wrote << std::endl;

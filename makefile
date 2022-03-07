@@ -1,4 +1,3 @@
-# compile with c++17
 text-client:
 	g++ -std=c++17 main-client.cc src/*.cc -o text-client
 
