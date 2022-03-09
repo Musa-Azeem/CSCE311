@@ -36,6 +36,7 @@ void TextClient::runClient(){
     ssize_t bytes_wrote;    //record number of bytes wrote to server
     ssize_t bytes_read;     //record number of bytes read from server
     char read_buffer[kRead_buffer_size];
+    const std::string kill_msg = "VERY VERY DISTINCT KILL MESSAGE (ITS SO DISTINCT)";
 
     // open nameless Unix socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -62,14 +63,26 @@ void TextClient::runClient(){
         exit(-1);
     }
     bytes_read = 0;
-    while(true/*still getting stuff from socket*/){
+    int i = 0;
+    while(true){
+        // std::cout << "in loop" << i <<std::endl;
         success = read(sock_fd, read_buffer, kRead_buffer_size);
         if(success < 0){
             std::cerr << "Error reading back" << std::endl;
         }
         found_lines += read_buffer;     //convert from char[] to string
+        // std::cout << "read " << found_lines << std::endl;
         bytes_read += success;
+        ssize_t pos = found_lines.find(kill_msg);
+        if(pos != std::string::npos){
+            // std::cout << "break" << std::endl;
+            found_lines.erase(pos, kill_msg.size());
+            bytes_read -= kill_msg.size();
+            break;
+        }
+        i+=1;
     }
+    // std::cout << "outside" << std::endl;
     print_strings();
     std::clog << "BYTES RECIEVED: " << bytes_read << std::endl;
 }

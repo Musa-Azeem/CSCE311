@@ -1,8 +1,8 @@
-text-client:
-	g++ -std=c++17 main-client.cc src/*.cc -o text-client
+text-client: src/* inc/*
+	g++ -std=c++17 src/main-client.cc src/text-client.cc src/Unix-Domain-Socket.cc -o text-client
 
-text-server:
-	g++ -std=c++17 main-server.cc src/*.cc -o text-server
+text-server: src/* inc/*
+	g++ -std=c++17 src/main-server.cc src/text-server.cc src/Unix-Domain-Socket.cc src/search.cc -o text-server
 
 clean:
 	rm text-client text-server

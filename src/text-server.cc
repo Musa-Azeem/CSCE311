@@ -29,6 +29,7 @@ void TextServer::runServer() const{
     ssize_t bytes_read;     //record number of bytes read from client str
     ssize_t bytes_wrote;    //record number of bytes wrote to client
     Search s;               //object to process data from client
+    const std::string kill_msg = "VERY VERY DISTINCT KILL MESSAGE (ITS SO DISTINCT)";
 
     // create socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -83,20 +84,23 @@ void TextServer::runServer() const{
                 //send one string of data, delimited by newline characters
                 ret += line + "\n";
             }
+            ret += kill_msg;    // append kill message to end of lines
             bytes_wrote = write(client_sock_fd, &ret[0], ret.size()+1);
             if(bytes_wrote < 0){
                 std::cerr << "Error writing back" << std::endl;
                 continue;
             }
+            bytes_wrote -= kill_msg.size();
             std::clog << "BYTES SENT: " << bytes_wrote << std::endl;
         }
         else{
-            char inv[] = "INVALID FILE";
-            bytes_wrote = write(client_sock_fd, inv, sizeof(inv));
+            std::string inv = "INVALID FILE" + kill_msg;
+            bytes_wrote = write(client_sock_fd, &inv[0], inv.size()+1);
             if(bytes_wrote < 0){
                 std::cerr << "Error writing back" << std::endl;
                 continue;
             }
+            bytes_wrote -= kill_msg.size();
             std::clog << "BYTES SENT: " << bytes_wrote << std::endl;
         }
     }

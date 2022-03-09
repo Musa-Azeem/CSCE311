@@ -3,7 +3,7 @@ Written by Musa Azeem
 Main method for text client
 */
 
-#include "inc/text-client.h"
+#include "../inc/text-client.h"
 #include <iostream>
 
 int main(int argv, char **argc){
