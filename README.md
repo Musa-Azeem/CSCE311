@@ -1,3 +1,15 @@
-# CSCE311 P1
+# CSCE311 P2
 
-https://man7.org/linux/man-pages/man7/unix.7.html
+Directory Structure:
+
+The ```inc``` folder contains all headers:
+    ```
+    Unix-Domain-Socket.h
+    text-server.h
+    text-client.h
+    search.h
+    ```
+
+The ```src``` folder contains all source code, including main methods for server and client
+
+
