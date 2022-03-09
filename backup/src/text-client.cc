@@ -35,7 +35,6 @@ void TextClient::runClient(){
     int sock_fd;            //unnamed socket file descriptor
     ssize_t bytes_wrote;    //record number of bytes wrote to server
     ssize_t bytes_read;     //record number of bytes read from server
-    char read_buffer[kRead_buffer_size];
 
     // open nameless Unix socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
@@ -61,21 +60,17 @@ void TextClient::runClient(){
         std::cerr << "Error writing to socket" << std::endl;
         exit(-1);
     }
-    bytes_read = 0;
-    while(true/*still getting stuff from socket*/){
-        success = read(sock_fd, read_buffer, kRead_buffer_size);
-        if(success < 0){
-            std::cerr << "Error reading back" << std::endl;
-        }
-        found_lines += read_buffer;     //convert from char[] to string
-        bytes_read += success;
+
+    bytes_read = read(sock_fd, read_buffer, kRead_buffer_size);
+    if(bytes_read < 0){
+        std::cerr << "Error reading back" << std::endl;
     }
     print_strings();
     std::clog << "BYTES RECIEVED: " << bytes_read << std::endl;
 }
 
 void TextClient::print_strings(){
-    std::stringstream ss(found_lines);
+    std::stringstream ss(read_buffer);
     std::string line;
     int i = 1;
     while(std::getline(ss, line)){

@@ -24,8 +24,7 @@ class TextClient: public UnixDomainSocket{
       void runClient();
     private:
       const size_t kRead_buffer_size = 1024;
-      // char read_buffer[1024];
-      std::string found_lines;
+      char read_buffer[1024];
       std::string path_str;
       std::string search_str;
       void print_strings();
