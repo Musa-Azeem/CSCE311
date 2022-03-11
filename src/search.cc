@@ -24,6 +24,7 @@ Functions:
 #include <vector>
 #include <fstream>      //using istream
 #include <sstream>      //using stringstream
+#include <experimental/filesystem>
 
 Search::Search() 
     : path(""), search_str(""), validFile(false)
@@ -57,7 +58,7 @@ const std::string &Search::get_search_str() const{
     return search_str;
 }
 void Search::checkValidFile(){
-    if(std::filesystem::exists(path)){
+    if(std::experimental::filesystem::exists(path)){
         validFile = true;
     }
     else{
