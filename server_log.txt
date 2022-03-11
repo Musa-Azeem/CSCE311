@@ -1,1 +1,6 @@
-./interaction.sh:32: no such file or directory: ./text-server
+SERVER STARTED
+	MAX CLIENTS: 3
+CLIENT CONNECTED
+PATH: dat/anna_karenina.txt
+SEEKING: you m
+BYTES SENT: 7981

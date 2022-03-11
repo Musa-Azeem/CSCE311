@@ -1,1 +1,2 @@
-Error connecting to socket
+SERVER CONNECTION ACCEPTED
+BYTES RECIEVED: 7981

@@ -24,25 +24,22 @@ Functions:
 #include <vector>
 #include <fstream>      //using istream
 #include <sstream>      //using stringstream
-#include <experimental/filesystem>
+#include <iostream>
 
 Search::Search() 
-    : path(""), search_str(""), validFile(false)
+    : path(""), search_str("")
     {}
 Search::Search(char *str){
     std::stringstream ss(str);
     std::getline(ss, path, '\t');
     std::getline(ss, search_str, '\t');
-    checkValidFile();
 }
 Search::Search(Search &s){
-    validFile = s.validFile;
     path = s.get_path();
     search_str = s.get_search_str();
     found_lines = s.get_found_lines();
 }
 const Search &Search::operator=(const Search &rhs){
-    validFile = rhs.validFile;
     path = rhs.get_path();
     search_str = rhs.get_search_str();
     found_lines = rhs.get_found_lines();
@@ -57,30 +54,23 @@ const std::string &Search::get_path() const{
 const std::string &Search::get_search_str() const{
     return search_str;
 }
-void Search::checkValidFile(){
-    if(std::experimental::filesystem::exists(path)){
-        validFile = true;
-    }
-    else{
-        validFile = false;
-    }
-}
 int Search::search(){
-    if(!validFile){
-        return 0;
-    }
-
     std::ifstream in_file;
     try{
         in_file.open(path);
         std::string line;
-        while(getline(in_file, line)){
-            if(line.find(search_str) != std::string::npos){
-                found_lines.push_back(line);
+        if(in_file){
+            while(getline(in_file, line)){
+                if(line.find(search_str) != std::string::npos){
+                    found_lines.push_back(line);
+                }
             }
+            return 1;
         }
-        in_file.close();
-        return 1;
+        else{
+            in_file.close();
+            return 0;
+        }
     }
     catch(std::string e){
         return(0);

@@ -38,8 +38,6 @@ class Search{
       std::string path;
       std::string search_str;
       std::vector<std::string> found_lines;
-      bool validFile;
-      void checkValidFile();
 };
 
 #endif
