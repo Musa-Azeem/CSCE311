@@ -1,2 +1,4 @@
-data/*
-
+client_out.txt
+client_log.txt
+server_out.txt
+server_log.txt
