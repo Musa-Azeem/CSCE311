@@ -1,2 +1,0 @@
-PATH: "dat/anna_karenina.txt"
-SEEKING: "you m"
