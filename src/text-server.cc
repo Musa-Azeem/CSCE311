@@ -73,8 +73,8 @@ void TextServer::runServer() const{
             continue;
         }
         s = Search(read_buffer);
-        std::clog << "PATH: " << s.get_path() << std::endl;
-        std::clog << "SEEKING: " << s.get_search_str() << std::endl;
+        std::clog << "PATH: \"" << s.get_path() << "\"" << std::endl;
+        std::clog << "SEEKING: \"" << s.get_search_str() << "\"" << std::endl;
 
         //Search file for search string and send found lines to client
         success = s.search();
