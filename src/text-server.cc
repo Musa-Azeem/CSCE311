@@ -30,7 +30,7 @@ void TextServer::runServer() const{
     ssize_t bytes_wrote;    //record number of bytes wrote to client
     Search s;               //object to process data from client
     // const std::string kill_msg = "VERY VERY DISTINCT KILL MESSAGE (ITS SO DISTINCT)";
-    const std::string kill_msg = "\004"
+    const std::string kill_msg = "\004";
 
     // create socket
     sock_fd = socket(AF_UNIX, SOCK_STREAM, 0);
