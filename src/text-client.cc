@@ -70,17 +70,17 @@ void TextClient::runClient(){
         if(success < 0){
             std::cerr << "Error reading back" << std::endl;
         }
-        found_lines += read_buffer;     //convert from char[] to string
+        found_lines += read_buffer;
         bytes_read += success;
         ssize_t pos = found_lines.find(kill_msg);
         if(pos != std::string::npos){
             found_lines.erase(pos, kill_msg.size());
+            found_lines += "\n";
             bytes_read -= kill_msg.size();
             break;
         }
         i+=1;
     }
-    // std::cout << "outside" << std::endl;
     print_strings();
     std::clog << "BYTES RECIEVED: " << bytes_read << std::endl;
 }
