@@ -75,7 +75,6 @@ void TextClient::runClient(){
         ssize_t pos = found_lines.find(kill_msg);
         if(pos != std::string::npos){
             found_lines.erase(pos, kill_msg.size());
-            found_lines += "\n";
             bytes_read -= kill_msg.size();
             break;
         }
