@@ -68,3 +68,4 @@ The `src` folder contains all source code, as well as the main methods for serve
 - This main method creates a Unix Domain Socket client using the `TextClient` class
 - It is given three command line argument providing the socket file name, the file to search, and the string the find
 - It is defined in the file `src/main-client.cc`
+
