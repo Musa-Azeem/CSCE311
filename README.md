@@ -37,7 +37,7 @@ Ubuntu 20.04 machine with C++17
 1. Open terminal
 2. Clone this repository
 ```
-    git clone https://github.com/Musa-Azeem/IPC-String-Search
+    git clone https://github.com/Musa-Azeem/CSCE311
 ```
 3. Change directory to local project
 ```
